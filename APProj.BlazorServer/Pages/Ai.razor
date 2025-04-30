@@ -1,0 +1,158 @@
+@using System.Collections
+@using System.Collections.Generic
+@using System.Collections.ObjectModel
+@using System.Collections.Specialized
+@using System.ComponentModel
+@using Microsoft.AspNetCore.SignalR.Client
+@using databaseLib
+@using SynchronizedCollection
+
+@page "/AiHelping"
+
+
+<PageTitle>Ai</PageTitle>
+
+<h1>Ai</h1>
+<span class="label">Task Id</span><br> <input type=text @bind-value=taskId />
+<br>
+<span class="label">Interest</span> <br> <input type=text @bind-value=interest />
+<br>
+<span class="label">Job</span> <br> <input type=text @bind-value=job />
+<br>
+<span class="label"> Time of each subTask</span> <br> <input type=text @bind-value=time />
+<br>
+<button class="btn btn-primary" @onclick="AiMotivate">Motivate me!</button>
+<button class="btn btn-primary" @onclick="AiBreakTask">Break Task</button>
+<button class="btn btn-primary" @onclick="AiWritePoem">Write a short poem</button>
+<button class="btn btn-primary" @onclick="AiGiveReason">Why I should do this</button>
+<button class="btn btn-primary" @onclick="AiBestWorst">Best & Worst Resutl</button>
+<button class="btn btn-primary" @onclick="AiMakeItFun">Make It Fun!</button>
+
+<br>
+<p role="status">Resutl:  @Result</p> 
+<br>
+
+
+@code {
+
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        TasksSync = new SynchronizedCollection<databaseLib.Task>(@"http://localhost:5000", "crud");
+        c = new ObservableCollection<databaseLib.Task>();
+
+        TasksSync.StartConnectionBlazorServer();
+        await System.Threading.Tasks.Task.Delay(800);
+        c = TasksSync.collection;
+    }
+
+
+    private async System.Threading.Tasks.Task   AiMotivate()
+    {
+        Result="";
+       var ai=new AiLib.Motivate();
+       ai.chat_input_interst=interest;
+       if(int.TryParse(taskId,out test))
+       {
+            ai.chat_input_task= TasksSync.collection.Where(f=>f.Id==int.Parse(taskId)).ToList().First().Taskname;
+            Result= await ai.UseChatGPTMotivation(ai.chat_input_interst,ai.chat_input_task);
+
+       }
+        else    
+            Result="Id is wrong";
+        
+    }
+
+    private async System.Threading.Tasks.Task AiBreakTask()
+    {
+
+           
+       var ai=new AiLib.BreakTask();
+       if(int.TryParse(taskId,out test) && int.TryParse(time,out test)  )
+       {
+            ai.chat_input_time=int.Parse(time);
+            ai.chat_input_task= TasksSync.collection.Where(f=>f.Id==int.Parse(taskId)).ToList().First().Taskname;
+           
+            Result=await ai.UseChatGPTBreaking(ai.chat_input_time,ai.chat_input_task);
+
+       }
+        else    
+            Result="Id is wrong Also time must be and integer";
+        
+    }
+    private async System.Threading.Tasks.Task AiWritePoem()
+    {
+       
+
+       var ai=new AiLib.Poem();
+       if(int.TryParse(taskId,out test))
+       {
+            ai.chat_input_task= TasksSync.collection.Where(f=>f.Id==int.Parse(taskId)).ToList().First().Taskname;
+            Result=await ai.UseChatGPTPoem(ai.chat_input_task);
+
+       }
+        else    
+            Result="Id is wrong";
+        
+    }
+
+
+    private async  System.Threading.Tasks.Task AiGiveReason()
+    {
+        Result="";
+
+       var ai=new AiLib.Why();
+       ai.chat_input_work=job;
+       if(int.TryParse(taskId,out test))
+       {
+            ai.chat_input_task= TasksSync.collection.Where(f=>f.Id==int.Parse(taskId)).ToList().First().Taskname;
+            Result= await ai.UseChatGPTWhy(ai.chat_input_work,ai.chat_input_task);
+
+       }
+        else    
+            Result="Id is wrong";
+        
+    }
+        private async System.Threading.Tasks.Task AiBestWorst()
+    {
+        Result="";
+       var ai=new AiLib.BestWorst();
+       ai.chat_input_work=job;
+       if(int.TryParse(taskId,out test))
+       {
+            ai.chat_input_task= TasksSync.collection.Where(f=>f.Id==int.Parse(taskId)).ToList().First().Taskname;
+            Result=await ai.UseChatGPTBestWorst(ai.chat_input_work,ai.chat_input_task);
+
+       }
+        else    
+            Result="Id is wrong";
+        
+    }
+
+    private async  System.Threading.Tasks.Task AiMakeItFun()
+    {
+
+        Result="";
+       var ai=new AiLib.MakeFun();
+       
+       if(int.TryParse(taskId,out test))
+       {
+            ai.chat_input_task= TasksSync.collection.Where(f=>f.Id==int.Parse(taskId)).ToList().First().Taskname;
+            Result=await ai.UseChatGPTMakeFun(ai.chat_input_task);
+
+       }
+        else    
+            Result="Id is wrong";
+        
+    }
+    public SynchronizedCollection<databaseLib.Task> TasksSync ;
+
+
+        int test=0;
+    ObservableCollection<databaseLib.Task> c;
+    private string Result;
+    private string interest;
+    private string job;
+    private string taskId;
+    private string time;
+}

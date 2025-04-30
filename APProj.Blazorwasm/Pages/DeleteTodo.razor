@@ -1,0 +1,67 @@
+@page "/DeleteTodo"
+@using SynchronizedCollection
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete todo</h1>
+
+<span class="label">Id</span> <input type=text @bind-value=DeleteId />
+<br>
+<p role="status"> @Result</p>
+<br>
+<button class="btn btn-primary" @onclick="Connection">start connection</button>
+<button class="btn btn-primary" @onclick="RemoveTask">Delete</button>
+
+
+@code {
+
+    private void Connection()
+    {
+        TasksSync.StartConnectionBlazorServer();
+        Result="The connection has been established";
+        StateHasChanged();
+    }
+    private void RemoveTask()
+    {
+        int test = 0;
+
+        if (string.IsNullOrWhiteSpace(this.DeleteId) || int.TryParse(this.DeleteId, out test) == false)
+        {
+            Result+=":Task ID can't be empty and It must be an integer!";
+            return;
+        }
+
+
+        bool exist = false;
+        int index = 0;
+        foreach (Todo.Task t in TasksSync.collection)
+        {
+            if (t.Id == int.Parse(DeleteId))
+            {
+                index = TasksSync.collection.IndexOf(t);
+                exist = true;
+
+            }
+        }
+        if (exist)
+        {
+            TasksSync.RemoveAt(index);
+            Result = "Done";
+        }
+        else
+            Result += ":this Task is not exist";
+
+        StateHasChanged();
+        
+
+        TasksSync.StopConnection();
+
+    }
+
+    private string DeleteId;
+    private string Result;
+
+    public SynchronizedCollection<Todo.Task> TasksSync = new SynchronizedCollection<Todo.Task>(@"http://localhost:5000",
+    "crud");
+
+
+}

@@ -1,0 +1,61 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">APProj.BlazorServer</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AddTodo">
+                <span class="oi oi-plus" aria-hidden="true"></span> Add Todo
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </div>
+                <div class="nav-item px-3">
+            <NavLink class="nav-link" href="DeleteTodo">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Delete Todo
+            </NavLink>
+        </div>
+                <div class="nav-item px-3">
+            <NavLink class="nav-link" href="EditTodo">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Edit Todo
+            </NavLink>
+        </div>
+
+                <div class="nav-item px-3">
+            <NavLink class="nav-link" href="SearchTodo">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Search Todo
+            </NavLink>
+        </div>
+
+                <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AiHelping">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Ai Help
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

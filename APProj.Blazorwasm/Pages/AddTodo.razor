@@ -1,0 +1,94 @@
+﻿@page "/AddTodo"
+@using SynchronizedCollection
+<PageTitle>Add</PageTitle>
+
+<h1>Add todo</h1>
+
+<span class="label">Id</span><br> <input type=text @bind-value=AddId />
+<br>
+<span class="label">Task Name</span> <br><input type=text @bind-value=AddName />
+<br>
+<span class="label">Task Deadline</span><br>
+<InputDate @bind-Value="AddDeadline" class="form-control" style="width:200px" />
+<br>
+<span class="label">Percent Done</span><br> <input type=text @bind-value=AddTimeneeded />
+<br>
+<span class="label">Timeneeded</span> <br><input type=text @bind-value=AddPercentDone />
+<br>
+<p role="status"> @Result</p>
+<br>
+<button class="btn btn-primary" @onclick="Connection">start connection</button>
+<button class="btn btn-primary" @onclick="AddTask">Add</button>
+
+@code {
+    private string AddId;
+    private string AddName;
+    private DateTime AddDeadline;
+    private string AddTimeneeded;
+    private string AddPercentDone;
+    private int duplicate;
+    private string Result;
+
+
+    public SynchronizedCollection<Todo.Task> TasksSync = new SynchronizedCollection<Todo.Task>(@"http://localhost:5000",
+    "crud");
+
+    private void Connection()
+    {
+
+
+        TasksSync.StartConnectionBlazorServer();
+        Result="The connection has been established";
+        StateHasChanged();
+    }
+    private void AddTask()
+    {
+        
+
+        int test = 0;
+        double test2 = 0;
+
+        if (string.IsNullOrWhiteSpace(this.AddName))
+        {
+            Result+=":Task Name can't be empty!";
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(this.AddTimeneeded) || int.TryParse(AddTimeneeded, out test) == false)
+        {
+            Result+=":Task Timeneeded can't be empty!";
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(this.AddPercentDone) || double.TryParse(AddPercentDone, out test2) == false)
+        {
+            AddPercentDone = "0";
+            Result+=":Task PercentDone will save 0!";
+
+        }
+
+        if (string.IsNullOrWhiteSpace(this.AddId) || int.TryParse(AddId, out test) == false)
+        {
+            Result+=":Task Id can't be empty and must be an integer!";
+            return;
+
+        }
+        foreach(var t in TasksSync.collection)
+            if(t.Id==int.Parse(AddId))
+                duplicate++;
+        if(duplicate>0)
+            {
+             AddId=(TasksSync.collection.OrderByDescending(t=>t.Id).ToList().First().Id +1).ToString();
+                Result+=$":the ID you have choosen is duplicate,so it will be replaced with ID:{AddId} ";
+             }
+
+
+
+
+        Todo.Task newTask = new Todo.Task(int.Parse(AddId), AddName, AddDeadline, double.Parse(AddPercentDone),
+        int.Parse(AddTimeneeded));
+        TasksSync.Add(newTask);
+        Result += "Task is Added";
+        StateHasChanged();
+        TasksSync.StopConnection();
+    }
+
+}

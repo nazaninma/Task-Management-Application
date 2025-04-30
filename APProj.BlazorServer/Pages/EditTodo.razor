@@ -1,0 +1,114 @@
+@using System.Collections
+@using System.Collections.Generic
+@using System.Collections.ObjectModel
+@using System.Collections.Specialized
+@using System.ComponentModel
+@using Microsoft.AspNetCore.SignalR.Client
+@using databaseLib
+@using SynchronizedCollection
+
+@page "/EditTodo"
+
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit todo</h1>
+<span class="label">Id</span><br> <input type=text @bind-value=EditId />
+<br>
+<span class="label">Task Name</span><br> <input type=text @bind-value=EditName />
+<br>
+<span class="label">Task Deadline</span> <br><InputDate @bind-Value ="EditDeadline" class="form-control" style="width:200px"  />
+<br>
+<span class="label">Percent Done</span> <br><input type=text @bind-value=EditTimeneeded />
+<br>
+<span class="label">Timeneeded</span> <br><input type=text @bind-value=EditPercentDone />
+<br>
+<p role="status"> @Result</p>
+<br>
+
+<button class="btn btn-primary" @onclick="Connection">start connection</button>
+<button class="btn btn-primary" @onclick="EditTask">Edit</button>
+
+@code {
+
+
+
+    private async void Connection()
+    {
+        TasksSync.StartConnectionBlazorServer();
+        Result="The connection has been established";
+    }
+
+    private async void EditTask()
+    {
+
+
+            int test= 0;
+            double test2=0;
+
+
+                if ( string.IsNullOrWhiteSpace(EditId) ||int.TryParse(EditId,out test)==false)
+                {
+                        Result+=":Task ID can't be empty and the id must be an integer ";
+                        return;
+                }
+                 if ( string.IsNullOrWhiteSpace(EditName))
+                {
+                        Result+=":Task New Name can't be empty!";
+                        return;
+                }
+
+                if ( string.IsNullOrWhiteSpace(EditTimeneeded)||int.TryParse(EditTimeneeded,out test)==false)
+                {
+                        Result+=":Task New Timeneeded can't be empty and the Timeneeded must be an integer";
+                        return;
+                }
+
+                if ( string.IsNullOrWhiteSpace(EditPercentDone)||double.TryParse(EditPercentDone,out test2)==false)
+                {
+                        Result+=":Task New Percentdone can't be empty and the percent done must be a double";
+                        return;
+                }
+
+
+
+        databaseLib.Task newTask = new databaseLib.Task(int.Parse(EditId), EditName, EditDeadline, double.Parse(EditTimeneeded), int.Parse(EditPercentDone));
+        bool exist = false;
+        int index = 0;
+        foreach (databaseLib.Task t in TasksSync.collection)
+        {
+            if (t.Id == int.Parse(EditId))
+            {
+                index = TasksSync.collection.IndexOf(t);
+                exist = true;
+            }
+
+        }
+        if (exist)
+        {
+            TasksSync.RemoveAt(index);
+          await  System.Threading.Tasks.Task.Delay(2000);
+            TasksSync.Add(newTask);
+            
+           
+            Result = "Done";
+        }
+        else
+            Result += ":this Task is not exist";
+       await System.Threading.Tasks.Task.Delay(2000);
+         
+
+        TasksSync.StopConnection();
+    }
+
+
+
+    public SynchronizedCollection<databaseLib.Task> TasksSync = new SynchronizedCollection<databaseLib.Task>(@"http://localhost:5000", "crud");
+
+    private string Result;
+    private string EditId;
+    private string EditName;
+    private DateTime EditDeadline;
+    private string EditTimeneeded;
+    private string EditPercentDone;
+}

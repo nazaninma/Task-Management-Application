@@ -1,0 +1,497 @@
+﻿<Window x:Class="APProj.wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:APProj.wpf"
+        mc:Ignorable="d"
+        Title="TaskManager" Height="550" Width="1010"
+        ResizeMode="NoResize"
+        Background="#181735">
+                <Grid >
+
+                        
+                       <Grid Background="#181735" >
+                                                        <TabControl Background="#181735">
+                                <TabItem Background="#181735">
+                                    <TabItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Add" Foreground="#E01161" />
+                                        </StackPanel>
+                                    </TabItem.Header>
+                                    <Label >
+                                        <StackPanel Background="#181735"  HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center" Margin="5" Orientation="Horizontal">
+
+                                            <StackPanel  Background="#181735"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+                                                <TextBlock Name ="Addid" 
+                                                            Text =" Task id"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            VerticalAlignment="Center"
+                                                            Margin="2"></TextBlock> 
+                                                <TextBox  Height="25" Width ="100"  Name="taskid"  Text="{Binding TaskidOP, Mode=TwoWay}"  Margin="2"  Foreground="White" Background="#0F0F2D"></TextBox>
+
+
+                                                <TextBlock Name ="name" 
+                                                            Text =" Task Name"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            VerticalAlignment="Center"
+                                                            Margin="2"></TextBlock> 
+                                                <TextBox  Height="25" Width ="100"  Name="taskname"  Text="{Binding TasknameOP, Mode=TwoWay}"  Margin="2"  Foreground="White" Background="#0F0F2D"></TextBox>
+ 
+                                                <TextBlock VerticalAlignment="Center" 
+                                                            Name ="dead" 
+                                                            Text ="deadline"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock>
+                                                <DatePicker Height="25" HorizontalAlignment="Left" Margin="15" Name="daedline" Text="{Binding deadlineOP, Mode=TwoWay}" 
+                                                            VerticalAlignment="Top" Width="115"  Foreground="#0F0F2D" Background="#0F0F2D" />  
+
+                                            
+                                                <TextBlock Name ="Addpercent" 
+                                                            Text =" Task percent done"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            VerticalAlignment="Center"
+                                                            Margin="2"></TextBlock> 
+                                                <TextBox  Height="25" Width ="100"  Name="taskPercent"  Text="{Binding TaskPercentOP, Mode=TwoWay}"  Margin="2"  Foreground="White" Background="#0F0F2D"></TextBox>
+                                           
+
+
+                                                <TextBlock VerticalAlignment="Center"
+                                                             Name ="time" 
+                                                             Text="Timeneeded"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock>
+
+                                                <TextBox  Height="25" Width ="90"  Name="timeneeded" Text="{Binding TimeneededOP, Mode=TwoWay}" Margin="2"  Foreground="White" Background="#0F0F2D"></TextBox>
+                                                         <Button Click="AddTask" Content="Add"
+                                                        Grid.Column="12"
+                                                        Grid.ColumnSpan="2"
+                                                            Foreground="White"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Margin="7.5"> 
+                                                         <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button> 
+
+
+
+                                                         <Button Click="StartConnetction" Content="connection"
+                                                        Grid.Column="12"
+                                                        Grid.ColumnSpan="2"
+                                                            Foreground="White"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Margin="7.5"> 
+                                                         <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button> 
+
+
+                                                </StackPanel>
+
+                                            </StackPanel  > 
+                                    </Label>
+                                </TabItem>
+                                <TabItem Background="#181735">
+                                    <TabItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Remove"  Foreground="#E01161" />
+                                        </StackPanel>
+                                    </TabItem.Header>
+                                        <Label>
+
+                                        
+                                            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+
+                                                <TextBlock VerticalAlignment="Center"
+                                                            Name ="id" 
+                                                            Text ="ID"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock>  
+
+                                                <TextBox  Height="20" Width ="80"  Name="taskId"  Text="{Binding theIdOP, Mode=TwoWay}"  Foreground="White" Background="#0F0F2D" ></TextBox>
+
+                                                    <Button Click="Remove" Content="Remove"
+                                                        Grid.Column="12"
+                                                        Grid.ColumnSpan="2"
+                                                            Foreground="White"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Margin="7.5">
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+                                            </StackPanel >
+                                        </Label>
+                                </TabItem>
+                                <TabItem Background="#181735">
+                                    <TabItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Edit" Foreground="#E01161" />
+                                        </StackPanel>
+                                    </TabItem.Header>
+                                        <Label>
+                                                <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+                                                    <TextBlock VerticalAlignment="Center" 
+                                                            Name ="theId"
+                                                            Text ="id"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock> 
+                                                        <TextBox  Height="20" Width ="80"  Name="TheId" Text="{Binding EditIdOP, Mode=TwoWay}" 
+                                                                     Foreground="White" Background="#0F0F2D" ></TextBox>
+
+
+                                                        <TextBlock VerticalAlignment="Center"
+                                                         Name ="newname"
+                                                         Text ="name"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock>  
+                                                        <TextBox  Height="20" Width ="80"  Name="Newname" Text="{Binding EditnameOP, Mode=TwoWay}" 
+                                                                  Foreground="White" Background="#0F0F2D"></TextBox>
+
+                                                         <TextBlock VerticalAlignment="Center"
+                                                          Name ="newdead" 
+                                                          Text ="deadline"
+                                                        Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock>
+                                                           
+                                                        <DatePicker Height="25" HorizontalAlignment="Left" Margin="30,20,0,0" Name="Newdaedline" Text="{Binding EditdeadlineOP, Mode=TwoWay}" 
+                                                                    VerticalAlignment="Top" Width="115" Foreground="#0F0F2D" Background="#0F0F2D" />  
+
+
+                                                        <TextBlock VerticalAlignment="Center"
+                                                         Name ="newtime"
+                                                         Text="Timeneeded"
+                                                        Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock>
+                                                        <TextBox  Height="20" Width ="80"  Name="Newtimeneeded" Text="{Binding EditTimeneededOP, Mode=TwoWay}" 
+                                                                  Foreground="White" Background="#0F0F2D" ></TextBox>
+
+                                                        <TextBlock VerticalAlignment="Center" 
+                                                            Name ="newpercent" 
+                                                            Text="Percent done"
+                                                            Foreground="LightGray" 
+                                                            FontSize="15"
+                                                            FontWeight="Medium"
+                                                            Margin="2"></TextBlock>
+
+                                                        <TextBox  Height="20" Width ="80"  Name="Newpercent" Text="{Binding EditPercentOP, Mode=TwoWay}" 
+                                                                  Foreground="White" Background="#0F0F2D" ></TextBox>
+
+
+
+                                                    <Button Click="EditTask" Content="Edit"
+                                                        Grid.Column="12"
+                                                        Grid.ColumnSpan="2"
+                                                            Foreground="White"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Margin="7.5">
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+
+
+                                            </StackPanel  > 
+                                        </Label>
+                                </TabItem>
+                                    <TabItem Background="#181735">
+                                    <TabItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Search/Sort" Foreground="#E01161" />
+                                        </StackPanel>
+                                    </TabItem.Header>
+                                        <Label>
+                                                <StackPanel Orientation="Horizontal">
+
+                                                        <StackPanel>
+                                                                <TextBlock Name="information"
+                                                                        Text="choose type of searching by menu"
+                                                                         Foreground="LightGray" 
+                                                                    FontSize="13"
+                                                                    FontWeight="Medium"
+                                                                    Margin="2" />
+                                                                <Grid> 
+                                                                                                                
+
+                                                                <ListBox  Name = "listbox" Margin = "20,70,20,20" Width="100" Height="45"  Background="#0F0F2D">
+                                                                    <ListBoxItem  Content = "SearchByName" Foreground="White" Background="#0F0F2D" /> 
+                                                                    <ListBoxItem Content = "SearchById"  Foreground="White" Background="#0F0F2D"/> 
+                                                                </ListBox> 
+
+                                                                <TextBox Height = "25" x:Name = "ListBox1" Width = "90" Margin = "31,20,20,0 "  
+                                                                    HorizontalAlignment = "Left" VerticalAlignment = "Top"  
+                                                                    Text="{Binding SelectedItem.Content,ElementName=listbox}" Foreground="White" Background="#0F0F2D" /> 
+                                                            </Grid> 
+                                                            
+                                                        </StackPanel>
+                                                        <StackPanel>
+                                                            <DataGrid Height="148" HorizontalAlignment="Left" Margin="12,21,0,0"
+                                                                 Name="McDataGrid" VerticalAlignment="Top" Width="450"  ItemsSource="{Binding }" >
+
+
+                                                            </DataGrid>
+                                                        
+                                                    </StackPanel>
+                                                     
+                                                      <StackPanel   HorizontalAlignment = "Right" VerticalAlignment = "Top">
+                                                          <TextBlock Name="information2" Text="after choosing type of search ,"
+                                                        Foreground="LightGray" 
+                                                            FontSize="13"
+                                                            FontWeight="Medium"
+                                                            Margin="4,0,0,0"/>
+                                                          <TextBlock Name="information3" Text="write the name or id of the task "
+                                                        Foreground="LightGray" 
+                                                            FontSize="13"
+                                                            FontWeight="Medium"
+                                                            Margin="4"/>
+                                                           <TextBox Text="{Binding SearchingTask , Mode=TwoWay}"
+                                                           Name="Search" Height="20" Width ="80"
+                                                             Foreground="White" Background="#0F0F2D"/>
+                                                         <Button Click="SearchTask" Content="searchTask"
+
+                                                                Foreground="White"
+                                                                FontSize="12"
+                                                                FontWeight="Medium"
+                                                                Margin="7.5">
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+
+                                                    <Button Click="ShowTasks" Content="showTasks"
+
+                                                            Foreground="White"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Margin="7.5,10,0,0">
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+
+                                                    <Button Click="SortDuaDate" Content="sortDuaDate"
+
+                                                            Foreground="White"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Margin="7.5 , 55,0,0">
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+
+                                                    <Button Click="SortId" Content="sortId"
+
+                                                            Foreground="White"
+                                                            FontSize="12"
+                                                            FontWeight="Medium"
+                                                            Margin="7.5 , 5,0,0">
+                                                        <Button.Style>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="#FE6584"/>
+                                                                <Setter Property="Cursor" Value="Hand"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="#FF4C70"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+
+                                                        <Button.Template>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Width="75" Height="20"
+                                                                        CornerRadius="8"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                                    HorizontalAlignment="Center"/>
+
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button> 
+
+                                                        </StackPanel>
+                                                
+                                           
+
+                                            </StackPanel>
+
+                                        </Label>
+                                </TabItem>
+  
+
+                            </TabControl>
+                        </Grid>
+               
+                </Grid>
+
+
+</Window>

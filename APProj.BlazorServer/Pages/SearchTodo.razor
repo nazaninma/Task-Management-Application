@@ -1,0 +1,111 @@
+@using System.Collections
+@using System.Collections.Generic
+@using System.Collections.ObjectModel
+@using System.Collections.Specialized
+@using System.ComponentModel
+@using Microsoft.AspNetCore.SignalR.Client
+@using databaseLib
+@using SynchronizedCollection
+@page "/SearchTodo"
+
+<PageTitle>Search Todo</PageTitle>
+
+<h1>search Todos</h1>
+
+<select @bind=@choice>
+    <option value="">Select</option>
+    <option value="id">Id</option>
+    <option value="name">Name</option>
+</select>
+<br>
+
+<span><em>Write the @choice </em></span> <input type=text @bind-value=request />
+
+<button class="btn btn-primary" @onclick="Search">search</button>
+
+@if (c == null)
+{
+    <p><em>There are no Tasks with this @choice </em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Task Name</th>
+                <th>Task Deadline</th>
+                <th>Task Percentdone</th>
+                <th>Task TimeNeeded</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in c)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Taskname</td>
+                    <td>@item.TaskdeadLine.ToShortDateString()</td>
+                    <td>@item.TaskperentCompeleted</td>
+                    <td>@item.Tasktimeneeded</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        TasksSync = new SynchronizedCollection<databaseLib.Task>(@"http://localhost:5000", "crud");
+
+        TasksSync.StartConnectionBlazorServer();
+        await System.Threading.Tasks.Task.Delay(800);
+    }
+
+    public void Search()
+    {
+        c = new ObservableCollection<databaseLib.Task>();
+        if (choice == "id")
+        {
+            if (int.TryParse(request, out test))
+            {
+                foreach (var t in TasksSync.collection.Where(t => t.Id == int.Parse(request)).ToList())
+                    c.Add(t);
+
+            }
+            else
+                error = "You must write an integer";
+
+        }
+
+        else if (choice == "name")
+
+        {
+            if (request != null && request != "")
+            {
+
+                foreach (var t in TasksSync.collection.Where(t => t.Taskname.Contains(request)).ToList())
+                    c.Add(t);
+
+            }
+            else
+                error = "your Task name can not be null";
+        }
+
+        else
+        {
+            error = "You should Id or Name";
+        }
+
+        TasksSync.StopConnection();
+    }
+
+    private string choice;
+    private string request;
+    private string error;
+    public int test;
+    ObservableCollection<databaseLib.Task> c;
+    public SynchronizedCollection<databaseLib.Task> TasksSync;
+}

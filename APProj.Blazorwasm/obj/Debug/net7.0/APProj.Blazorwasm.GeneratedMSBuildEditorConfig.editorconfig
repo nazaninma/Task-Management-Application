@@ -1,0 +1,61 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = APProj.Blazorwasm
+build_property.RootNamespace = APProj.Blazorwasm
+build_property.ProjectDir = C:\dev\git\AP01022.asli\SendToMaster\20.4.1402\APProjS\APProj.Blazorwasm\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\dev\git\AP01022.asli\SendToMaster\20.4.1402\APProjS\APProj.Blazorwasm
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Pages/AddTodo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkVG9kby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Pages/DeleteTodo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGVsZXRlVG9kby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Pages/EditTodo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdFRvZG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Pages/SearchTodo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VhcmNoVG9kby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2v0ut6sc4d
+
+[C:/dev/git/AP01022.asli/SendToMaster/20.4.1402/APProjS/APProj.Blazorwasm/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-lgr8oyh6eb

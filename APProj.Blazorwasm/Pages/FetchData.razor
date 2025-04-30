@@ -1,0 +1,131 @@
+﻿@using System.Collections
+@using System.Collections.Generic
+@using System.Collections.ObjectModel
+@using System.Collections.Specialized
+@using System.ComponentModel
+@using Microsoft.AspNetCore.SignalR.Client
+@using SynchronizedCollection
+
+@page "/fetchdata"
+@inject HttpClient Http
+
+<PageTitle>All Todo</PageTitle>
+
+<h1>Todos</h1>
+
+
+
+<select @bind=@choice>
+    <option value="select">Select</option>
+    <option value="ShowAll">Show All</option>
+    <option value="orderById">Order By Id</option>
+    <option value="orderByDeadline">Order By Deadline</option>
+    <option value="CompleteTask">Complete Task</option>
+    <option value="InCompletetTask">InCompletet Task</option>
+</select>
+<br>
+<p>@error</p>
+<button class="btn btn-primary" @onclick="Refresh">refresh</button>
+
+@if (TasksSync.collection == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Task Name</th>
+                <th>Task Deadline</th>
+                <th>Task Percentdone</th>
+                <th>Task TimeNeeded</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in c)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Taskname</td>
+                    <td>@item.TaskdeadLine.ToShortDateString()</td>
+                    <td>@item.TaskperentCompeleted</td>
+                    <td>@item.Tasktimeneeded</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        TasksSync = new SynchronizedCollection<Todo.Task>(@"http://localhost:5000", "crud");
+
+        TasksSync.refreshTask = InvokeAsync(StateHasChanged);
+
+        TasksSync.StartConnectionBlazorWASM();
+        await System.Threading.Tasks.Task.Delay(800);
+        c = new ObservableCollection<Todo.Task>();
+        c = TasksSync.collection;
+
+    }
+
+
+    public void Refresh()
+    {
+@* 
+        TasksSync = new SynchronizedCollection<Todo.Task>(@"http://localhost:5000", "crud");
+
+        TasksSync.refreshTask = InvokeAsync(StateHasChanged);
+
+        TasksSync.StartConnectionBlazorWASM();
+        System.Threading.Tasks.Task.Delay(800); *@
+        c = new ObservableCollection<Todo.Task>();
+        if (choice == "ShowAll")
+        {
+            c = TasksSync.collection;
+        }
+
+        else if (choice == "orderById")
+
+        {
+            
+            foreach (var t in TasksSync.collection.OrderBy(t => t.Id).ToList())
+                c.Add(t);
+        }
+
+
+        else if (choice == "orderByDeadline")
+
+        {
+            foreach (var t in TasksSync.collection.OrderByDescending(t => t.TaskdeadLine).ToList())
+                c.Add(t);
+        }
+
+        else if (choice == "CompleteTask")
+
+        {
+            foreach (var t in TasksSync.collection.Where(t => t.TaskperentCompeleted == 100).ToList())
+                c.Add(t);
+        }
+
+        else if (choice == "InCompletetTask")
+
+        {
+            foreach (var t in TasksSync.collection.Where(t => t.TaskperentCompeleted != 100).ToList())
+                c.Add(t);
+        }
+        else
+            error = "You must choose one of the options";
+        TasksSync.StopConnection();
+
+    }
+    private string choice;
+    private string error;
+    ObservableCollection<Todo.Task> c;
+    public SynchronizedCollection<Todo.Task> TasksSync;
+
+}
